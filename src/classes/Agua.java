@@ -5,23 +5,23 @@
  */
 package classes;
 
-import interfaces.IFogo;
+import interfaces.IAgua;
 
 /**
  *
  * @author Luis Guilherme
  */
-public class Fogo extends Pokemon implements IFogo{
+public class Agua extends Pokemon implements IAgua{
 
-    public Fogo() {
+    public Agua() {
     }
 
-    public Fogo(String nome, String tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
+    public Agua(String nome, String tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
         super(nome, tipo, peso, altura, ataque, forca, defesa, agilidade, ataqueEspecial, codigo);
     }
-    
+
     @Override
-    public void ataqueEspecialFogo() {
+    public void ataqueEspecialAgua() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
