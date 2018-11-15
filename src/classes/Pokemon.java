@@ -120,8 +120,6 @@ public class Pokemon {
 
     @Override
     public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        return "Pokemon{" + "nome=" + nome + ", tipo=" + tipo + ", peso=" + peso + ", altura=" + altura + ", ataque=" + ataque + ", forca=" + forca + ", defesa=" + defesa + ", agilidade=" + agilidade + ", ataqueEspecial=" + ataqueEspecial + ", codigo=" + codigo + '}';
     }
-    
-    
 }
