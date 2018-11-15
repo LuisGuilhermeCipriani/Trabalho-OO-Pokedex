@@ -5,6 +5,7 @@
  */
 package classes;
 
+import enums.ETipo;
 import interfaces.IDragao;
 
 /**
@@ -16,7 +17,7 @@ public class Dragao extends Pokemon implements IDragao{
     public Dragao() {
     }
 
-    public Dragao(String nome, String tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
+    public Dragao(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
         super(nome, tipo, peso, altura, ataque, forca, defesa, agilidade, ataqueEspecial, codigo);
     }
 

@@ -5,6 +5,7 @@
  */
 package classes;
 
+import enums.ETipo;
 import interfaces.IPsiquico;
 
 /**
@@ -16,7 +17,7 @@ public class Psiquico extends Pokemon implements IPsiquico{
     public Psiquico() {
     }
 
-    public Psiquico(String nome, String tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
+    public Psiquico(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
         super(nome, tipo, peso, altura, ataque, forca, defesa, agilidade, ataqueEspecial, codigo);
     }
 

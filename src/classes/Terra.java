@@ -5,6 +5,7 @@
  */
 package classes;
 
+import enums.ETipo;
 import interfaces.ITerra;
 
 /**
@@ -16,7 +17,7 @@ public class Terra extends Pokemon implements ITerra{
     public Terra() {
     }
 
-    public Terra(String nome, String tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
+    public Terra(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
         super(nome, tipo, peso, altura, ataque, forca, defesa, agilidade, ataqueEspecial, codigo);
     }
 

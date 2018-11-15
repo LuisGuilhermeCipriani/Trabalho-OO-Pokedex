@@ -5,6 +5,7 @@
  */
 package classes;
 
+import enums.ETipo;
 import interfaces.IAgua;
 
 /**
@@ -16,7 +17,7 @@ public class Agua extends Pokemon implements IAgua{
     public Agua() {
     }
 
-    public Agua(String nome, String tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
+    public Agua(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
         super(nome, tipo, peso, altura, ataque, forca, defesa, agilidade, ataqueEspecial, codigo);
     }
 

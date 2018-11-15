@@ -5,6 +5,8 @@
  */
 package classes;
 
+import enums.ETipo;
+
 /**
  *
  * @author Luis Guilherme
@@ -12,7 +14,7 @@ package classes;
 public class Pokemon {
     
     private String nome;
-    private String tipo;
+    private ETipo tipo;
     private double peso;
     private double altura;
     private int ataque;
@@ -25,7 +27,7 @@ public class Pokemon {
     public Pokemon() {
     }
 
-    public Pokemon(String nome, String tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
+    public Pokemon(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
         this.nome = nome;
         this.tipo = tipo;
         this.peso = peso;
@@ -46,11 +48,11 @@ public class Pokemon {
         this.nome = nome;
     }
 
-    public String getTipo() {
+    public ETipo getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(ETipo tipo) {
         this.tipo = tipo;
     }
 
