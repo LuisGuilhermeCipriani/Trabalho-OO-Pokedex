@@ -27,7 +27,7 @@ public class Pokemon {
     public Pokemon() {
     }
 
-    public Pokemon(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
+    public Pokemon(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, int codigo) {
         this.nome = nome;
         this.tipo = tipo;
         this.peso = peso;
@@ -36,7 +36,6 @@ public class Pokemon {
         this.forca = forca;
         this.defesa = defesa;
         this.agilidade = agilidade;
-        this.ataqueEspecial = ataqueEspecial;
         this.codigo = codigo;
     }
 
@@ -122,6 +121,16 @@ public class Pokemon {
 
     @Override
     public String toString() {
-        return "Pokemon{" + "nome=" + nome + ", tipo=" + tipo + ", peso=" + peso + ", altura=" + altura + ", ataque=" + ataque + ", forca=" + forca + ", defesa=" + defesa + ", agilidade=" + agilidade + ", ataqueEspecial=" + ataqueEspecial + ", codigo=" + codigo + '}';
+        return  "Nome: " + nome 
+                + "\nTipo: " + tipo 
+                + "\nPeso: " + peso 
+                + "\nAltura: " + altura 
+                + "\nAtaque: " + ataque 
+                + "\nForça: " + forca 
+                + "\nDefesa: " + defesa 
+                + "\nAgilidade: " + agilidade 
+                + "\nAtaque Especial: " + ataqueEspecial 
+                + "\nCodigo: " + codigo
+                + "\n*******************************************************";
     }
 }

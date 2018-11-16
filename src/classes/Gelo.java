@@ -17,9 +17,11 @@ public class Gelo extends Pokemon implements IGelo{
     public Gelo() {
     }
 
-    public Gelo(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
-        super(nome, tipo, peso, altura, ataque, forca, defesa, agilidade, ataqueEspecial, codigo);
+    public Gelo(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, int codigo) {
+        super(nome, tipo, peso, altura, ataque, forca, defesa, agilidade, codigo);
     }
+
+    
 
     @Override
     public void ataqueEspecialGelo() {

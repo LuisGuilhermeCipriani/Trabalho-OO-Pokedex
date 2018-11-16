@@ -11,7 +11,7 @@ package enums;
  */
 public enum ETipo {
     
-    ACO,
+    AÇO,
     AGUA,
     DRAGAO,
     ELETRICO,

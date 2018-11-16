@@ -14,16 +14,15 @@ import interfaces.IAco;
  */
 public class Aco extends Pokemon implements IAco{
 
-    public Aco() {
+    public Aco(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, int codigo) {
+        super(nome, tipo, peso, altura, ataque, forca, defesa, agilidade, codigo);
     }
-
-    public Aco(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
-        super(nome, tipo, peso, altura, ataque, forca, defesa, agilidade, ataqueEspecial, codigo);
-    }
+    
 
     @Override
     public void ataqueEspecialAco() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Super aço");
     }
+    
     
 }

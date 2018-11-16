@@ -5,7 +5,13 @@
  */
 package telas;
 
+import classes.Aco;
+import classes.Pokedex;
+import classes.Pokemon;
+import enums.ETipo;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,12 +19,12 @@ import java.awt.Color;
  */
 public class TelaPokedex extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaPokedex
-     */
+    public Pokedex pokedex;
+    
     public TelaPokedex() {
         initComponents();
         btcadastrar.setContentAreaFilled(false);
+        pokedex = new Pokedex();
     }
 
     /**
@@ -33,34 +39,34 @@ public class TelaPokedex extends javax.swing.JFrame {
         grSelecao = new javax.swing.ButtonGroup();
         btcadastrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        taInfo = new javax.swing.JTextArea();
+        rbTodos = new javax.swing.JRadioButton();
+        rbNome = new javax.swing.JRadioButton();
+        rbTipo = new javax.swing.JRadioButton();
+        rbCodigo = new javax.swing.JRadioButton();
+        btBuscar = new javax.swing.JButton();
+        tfBuscar = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lbNome = new javax.swing.JLabel();
+        lbTipo = new javax.swing.JLabel();
+        cbTipo = new javax.swing.JComboBox<>();
+        tfNome = new javax.swing.JTextField();
+        lbPeso = new javax.swing.JLabel();
+        lbAltura = new javax.swing.JLabel();
+        tfAltura = new javax.swing.JTextField();
+        lbAtaque = new javax.swing.JLabel();
+        tfAtaque = new javax.swing.JTextField();
+        lbForca = new javax.swing.JLabel();
+        tfForca = new javax.swing.JTextField();
+        lbDefesa = new javax.swing.JLabel();
+        tfDefesa = new javax.swing.JTextField();
+        lbAgilidade = new javax.swing.JLabel();
+        tfAgilidade = new javax.swing.JTextField();
+        tfPeso = new javax.swing.JTextField();
+        btCadastrar = new javax.swing.JButton();
+        btRemover = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
+        lbImagemFundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pokédex");
@@ -79,105 +85,125 @@ public class TelaPokedex extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(51, 255, 51));
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jScrollPane1.setViewportView(jTextArea1);
+        taInfo.setEditable(false);
+        taInfo.setBackground(new java.awt.Color(51, 255, 51));
+        taInfo.setColumns(20);
+        taInfo.setRows(5);
+        taInfo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jScrollPane1.setViewportView(taInfo);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(440, 90, 300, 170);
 
-        grSelecao.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Todos");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        grSelecao.add(rbTodos);
+        rbTodos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbTodos.setSelected(true);
+        rbTodos.setText("Todos");
+        rbTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                rbTodosActionPerformed(evt);
             }
         });
-        getContentPane().add(jRadioButton1);
-        jRadioButton1.setBounds(670, 10, 59, 23);
+        getContentPane().add(rbTodos);
+        rbTodos.setBounds(670, 10, 59, 23);
 
-        grSelecao.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton2.setText("Nome");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        grSelecao.add(rbNome);
+        rbNome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbNome.setText("Nome");
+        rbNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                rbNomeActionPerformed(evt);
             }
         });
-        getContentPane().add(jRadioButton2);
-        jRadioButton2.setBounds(440, 10, 57, 23);
+        getContentPane().add(rbNome);
+        rbNome.setBounds(440, 10, 57, 23);
 
-        grSelecao.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton3.setText("Tipo");
-        getContentPane().add(jRadioButton3);
-        jRadioButton3.setBounds(600, 10, 49, 23);
-
-        grSelecao.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton4.setText("Código");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+        grSelecao.add(rbTipo);
+        rbTipo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbTipo.setText("Tipo");
+        rbTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton4ActionPerformed(evt);
+                rbTipoActionPerformed(evt);
             }
         });
-        getContentPane().add(jRadioButton4);
-        jRadioButton4.setBounds(520, 10, 63, 23);
+        getContentPane().add(rbTipo);
+        rbTipo.setBounds(600, 10, 49, 23);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setText("Buscar");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(660, 50, 80, 23);
+        grSelecao.add(rbCodigo);
+        rbCodigo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbCodigo.setText("Código");
+        rbCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbCodigoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(rbCodigo);
+        rbCodigo.setBounds(520, 10, 63, 23);
 
-        jTextField1.setEnabled(false);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(440, 50, 210, 30);
+        btBuscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btBuscar.setText("Buscar");
+        btBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBuscarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btBuscar);
+        btBuscar.setBounds(660, 50, 80, 23);
+
+        tfBuscar.setEnabled(false);
+        tfBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfBuscarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tfBuscar);
+        tfBuscar.setBounds(440, 50, 210, 30);
 
         jPanel1.setBackground(new java.awt.Color(192, 13, 13));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Nome:");
+        lbNome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbNome.setText("Nome:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Tipo:");
+        lbTipo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbTipo.setText("Tipo:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aço", "Água", "Dragão", "Elétrico", "Fada", "Fantasma", "Fogo", "Gelo", "Grama", "Inseto", "Lutador", "Normal", "Pedra", "Psiquico", "Terra", "Veneno", "Voador" }));
-        jComboBox1.setSelectedIndex(-1);
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aço", "Água", "Dragão", "Elétrico", "Fada", "Fantasma", "Fogo", "Gelo", "Grama", "Inseto", "Lutador", "Normal", "Pedra", "Psiquico", "Terra", "Veneno", "Voador" }));
+        cbTipo.setSelectedIndex(-1);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Peso:");
+        lbPeso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbPeso.setText("Peso:");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Altura:");
+        lbAltura.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbAltura.setText("Altura:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("Ataque:");
+        lbAtaque.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbAtaque.setText("Ataque:");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Força:");
+        lbForca.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbForca.setText("Força:");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Defesa:");
+        lbDefesa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbDefesa.setText("Defesa:");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("Agilidade:");
+        lbAgilidade.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbAgilidade.setText("Agilidade:");
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton2.setText("Cadastrar");
+        btCadastrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btCadastrar.setText("Cadastrar");
+        btCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCadastrarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton3.setText("Remover");
-        jButton3.setEnabled(false);
+        btRemover.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btRemover.setText("Remover");
+        btRemover.setEnabled(false);
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton4.setText("Editar");
-        jButton4.setEnabled(false);
+        btEditar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btEditar.setText("Editar");
+        btEditar.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -187,47 +213,47 @@ public class TelaPokedex extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbDefesa, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfDefesa, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9)
+                        .addComponent(lbAgilidade)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lbNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbPeso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbAtaque, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                                    .addComponent(jTextField9))
+                                    .addComponent(tfAtaque, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                                    .addComponent(tfPeso))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lbAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbForca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tfForca, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfAgilidade, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btCadastrar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(btRemover)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(btEditar)
                 .addGap(0, 12, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -237,71 +263,135 @@ public class TelaPokedex extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
+                            .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbTipo)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lbNome)
+                            .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbAltura)
+                        .addComponent(tfAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lbPeso)
+                            .addComponent(tfPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7))
+                        .addComponent(tfForca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbForca))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lbAtaque)
+                            .addComponent(tfAtaque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9))
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbDefesa)
+                        .addComponent(tfDefesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbAgilidade))
+                    .addComponent(tfAgilidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btCadastrar)
+                    .addComponent(btRemover)
+                    .addComponent(btEditar))
                 .addContainerGap())
         );
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(440, 270, 300, 220);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ImagemPokedex.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, -20, 761, 550);
+        lbImagemFundo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbImagemFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ImagemPokedex.png"))); // NOI18N
+        getContentPane().add(lbImagemFundo);
+        lbImagemFundo.setBounds(0, -20, 761, 550);
 
         setSize(new java.awt.Dimension(777, 594));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    private void rbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodosActionPerformed
+        if(rbTodos.isSelected()){
+            tfBuscar.setEnabled(false);
+        }
+    }//GEN-LAST:event_rbTodosActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    private void rbNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNomeActionPerformed
+        if(rbNome.isSelected()){
+            tfBuscar.setEnabled(true);
+        }
+    }//GEN-LAST:event_rbNomeActionPerformed
 
-    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+    private void rbCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCodigoActionPerformed
+        if(rbCodigo.isSelected()){
+            tfBuscar.setEnabled(true);
+        }
+    }//GEN-LAST:event_rbCodigoActionPerformed
+
+    private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
+        try{
+            String nome = tfNome.getText();
+            double peso = Double.parseDouble(tfPeso.getText());
+            double altura = Double.parseDouble(tfAltura.getText());
+            int ataque = Integer.parseInt(tfAtaque.getText());
+            int forca = Integer.parseInt(tfForca.getText());
+            int defesa = Integer.parseInt(tfDefesa.getText());
+            int agilidade = Integer.parseInt(tfAgilidade.getText());
+            if(cbTipo.getSelectedIndex() == 0){
+                Aco pokemon = new Aco(nome, ETipo.AÇO, peso, altura, ataque, forca, defesa, agilidade, 1);
+                pokemon.setCodigo(1);
+                pokemon.ataqueEspecialAco();
+                pokedex.inserirPokemon(pokemon);
+                JOptionPane.showMessageDialog(null, "Pokemon Cadastrado!");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro");
+        }
+    }//GEN-LAST:event_btCadastrarActionPerformed
+
+    private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
+        try{
+            taInfo.setText("");
+            if(rbTodos.isSelected()){
+                List<Pokemon> lista = pokedex.imprimePokedex();
+                for(Pokemon p : lista){
+                    taInfo.append(p.toString() + "\n");
+                }
+            }else{
+                if(rbNome.isSelected()){
+                   Pokemon pokemon = pokedex.buscarPorNome(tfBuscar.getText());
+                   taInfo.setText(pokemon.toString());
+                }else if(rbCodigo.isSelected()){
+                    Pokemon pokemon = pokedex.buscarPorCodigo(Integer.parseInt(tfBuscar.getText()));
+                    taInfo.setText(pokemon.toString());
+                }else if(rbTipo.isSelected()){
+                    List<Pokemon> pokemon = pokedex.buscarPorTipo(tfBuscar.getText());
+                    for(Pokemon p: pokemon){
+                        taInfo.append(p.toString());
+                    }
+                }
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro");
+        }
+    }//GEN-LAST:event_btBuscarActionPerformed
+
+    private void tfBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton4ActionPerformed
+    }//GEN-LAST:event_tfBuscarActionPerformed
+
+    private void rbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTipoActionPerformed
+        if(rbTipo.isSelected()){
+            tfBuscar.setEnabled(true);
+        }
+    }//GEN-LAST:event_rbTipoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,36 +429,36 @@ public class TelaPokedex extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btBuscar;
+    private javax.swing.JButton btCadastrar;
+    private javax.swing.JButton btEditar;
+    private javax.swing.JButton btRemover;
     private javax.swing.JButton btcadastrar;
+    private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.ButtonGroup grSelecao;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel lbAgilidade;
+    private javax.swing.JLabel lbAltura;
+    private javax.swing.JLabel lbAtaque;
+    private javax.swing.JLabel lbDefesa;
+    private javax.swing.JLabel lbForca;
+    private javax.swing.JLabel lbImagemFundo;
+    private javax.swing.JLabel lbNome;
+    private javax.swing.JLabel lbPeso;
+    private javax.swing.JLabel lbTipo;
+    private javax.swing.JRadioButton rbCodigo;
+    private javax.swing.JRadioButton rbNome;
+    private javax.swing.JRadioButton rbTipo;
+    private javax.swing.JRadioButton rbTodos;
+    private javax.swing.JTextArea taInfo;
+    private javax.swing.JTextField tfAgilidade;
+    private javax.swing.JTextField tfAltura;
+    private javax.swing.JTextField tfAtaque;
+    private javax.swing.JTextField tfBuscar;
+    private javax.swing.JTextField tfDefesa;
+    private javax.swing.JTextField tfForca;
+    private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfPeso;
     // End of variables declaration//GEN-END:variables
 }

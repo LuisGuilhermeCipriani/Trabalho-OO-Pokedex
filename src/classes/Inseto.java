@@ -17,9 +17,11 @@ public class Inseto extends Pokemon implements IInseto{
     public Inseto() {
     }
 
-    public Inseto(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, String ataqueEspecial, int codigo) {
-        super(nome, tipo, peso, altura, ataque, forca, defesa, agilidade, ataqueEspecial, codigo);
+    public Inseto(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, int codigo) {
+        super(nome, tipo, peso, altura, ataque, forca, defesa, agilidade, codigo);
     }
+
+    
 
     @Override
     public void ataqueEspecialInseto() {

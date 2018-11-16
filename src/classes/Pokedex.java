@@ -35,7 +35,7 @@ public class Pokedex {
     public Pokemon buscarPorNome(String nome){
         Pokemon pokemon = null;
         for(Pokemon p: listaPokemon){
-            if(p.getNome().equals(nome)){
+            if(p.getNome().toLowerCase().equals(nome.toLowerCase())){
                 pokemon = p;
             }
         }
@@ -52,14 +52,14 @@ public class Pokedex {
         return pokemon;
     }
     
-    public List<Pokemon> buscarPorTipo(ETipo tipo){
-        List<Pokemon> pkm = new ArrayList<Pokemon>();
+    public List<Pokemon> buscarPorTipo(String tipo){
+        List<Pokemon> pokemon = new ArrayList<Pokemon>();
         for(Pokemon p: listaPokemon){
-            if(p.getTipo().equals(tipo)){
-                pkm.add(p);
+            if(p.getTipo().toString().equals(tipo.toUpperCase())){
+                pokemon.add(p);
             }
         }
-        return pkm;
+        return pokemon;
     }
      
     public void editarPokemon(Pokemon pokemon){
