@@ -25,7 +25,7 @@ public class Veneno extends Pokemon implements IVeneno{
 
     @Override
     public void ataqueEspecialVeneno() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Veneno");
     }
     
 }

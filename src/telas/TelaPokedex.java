@@ -6,8 +6,24 @@
 package telas;
 
 import classes.Aco;
+import classes.Agua;
+import classes.Dragao;
+import classes.Eletrico;
+import classes.Fada;
+import classes.Fantasma;
+import classes.Fogo;
+import classes.Gelo;
+import classes.Grama;
+import classes.Inseto;
+import classes.Lutador;
+import classes.Normal;
+import classes.Pedra;
 import classes.Pokedex;
 import classes.Pokemon;
+import classes.Psiquico;
+import classes.Terra;
+import classes.Veneno;
+import classes.Voador;
 import enums.ETipo;
 import java.awt.Color;
 import java.util.List;
@@ -19,11 +35,22 @@ import javax.swing.JOptionPane;
  */
 public class TelaPokedex extends javax.swing.JFrame {
 
-    public Pokedex pokedex;
+    private final Pokedex pokedex; //Objeto para acessar a Pokedex
+    private Pokemon pkm; //Objeto para receber pokemon buscado
+    private int cdg = 1; //Variável para controle de código
     
     public TelaPokedex() {
         initComponents();
-        btcadastrar.setContentAreaFilled(false);
+        //btcadastrar.setContentAreaFilled(false);
+        btRemover.setBackground(Color.RED);
+        btEditar.setBackground(Color.YELLOW);
+        btCadastrar.setBackground(Color.BLUE);
+        btCadastrar.setForeground(Color.WHITE);
+        btRemover.setForeground(Color.WHITE);
+        btLimpar.setBackground(Color.WHITE);
+        btBuscar.setBackground(Color.BLACK);
+        btBuscar.setForeground(Color.WHITE);
+        btLimpar.setBorderPainted(true);
         pokedex = new Pokedex();
     }
 
@@ -37,7 +64,6 @@ public class TelaPokedex extends javax.swing.JFrame {
     private void initComponents() {
 
         grSelecao = new javax.swing.ButtonGroup();
-        btcadastrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         taInfo = new javax.swing.JTextArea();
         rbTodos = new javax.swing.JRadioButton();
@@ -46,6 +72,7 @@ public class TelaPokedex extends javax.swing.JFrame {
         rbCodigo = new javax.swing.JRadioButton();
         btBuscar = new javax.swing.JButton();
         tfBuscar = new javax.swing.JTextField();
+        btLimpar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lbNome = new javax.swing.JLabel();
         lbTipo = new javax.swing.JLabel();
@@ -66,7 +93,7 @@ public class TelaPokedex extends javax.swing.JFrame {
         btCadastrar = new javax.swing.JButton();
         btRemover = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
-        lbImagemFundo = new javax.swing.JLabel();
+        lbTelaFundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pokédex");
@@ -74,14 +101,6 @@ public class TelaPokedex extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(761, 536));
         setResizable(false);
         getContentPane().setLayout(null);
-
-        btcadastrar.setBackground(new java.awt.Color(192, 13, 13));
-        btcadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Cruz.png"))); // NOI18N
-        btcadastrar.setBorder(null);
-        btcadastrar.setBorderPainted(false);
-        btcadastrar.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Cruz2.png"))); // NOI18N
-        getContentPane().add(btcadastrar);
-        btcadastrar.setBounds(240, 380, 110, 110);
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -159,6 +178,17 @@ public class TelaPokedex extends javax.swing.JFrame {
         getContentPane().add(tfBuscar);
         tfBuscar.setBounds(440, 50, 210, 30);
 
+        btLimpar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btLimpar.setText("Limpar");
+        btLimpar.setBorder(null);
+        btLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLimparActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btLimpar);
+        btLimpar.setBounds(240, 410, 100, 60);
+
         jPanel1.setBackground(new java.awt.Color(192, 13, 13));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
 
@@ -168,7 +198,7 @@ public class TelaPokedex extends javax.swing.JFrame {
         lbTipo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbTipo.setText("Tipo:");
 
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aço", "Água", "Dragão", "Elétrico", "Fada", "Fantasma", "Fogo", "Gelo", "Grama", "Inseto", "Lutador", "Normal", "Pedra", "Psiquico", "Terra", "Veneno", "Voador" }));
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AÇO", "ÁGUA", "DRAGÃO", "ELÉTRICO", "FADA", "FANTASMA", "FOGO", "GELO", "GRAMA", "INSETO", "LUTADOR", "NORMAL", "PEDRA", "PSÍQUICO", "TERRA", "VENENO", "VOADOR" }));
         cbTipo.setSelectedIndex(-1);
 
         lbPeso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -199,11 +229,19 @@ public class TelaPokedex extends javax.swing.JFrame {
 
         btRemover.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btRemover.setText("Remover");
-        btRemover.setEnabled(false);
+        btRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRemoverActionPerformed(evt);
+            }
+        });
 
         btEditar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btEditar.setText("Editar");
-        btEditar.setEnabled(false);
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -232,7 +270,7 @@ public class TelaPokedex extends javax.swing.JFrame {
                                 .addComponent(lbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 14, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(tfAtaque, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
@@ -250,26 +288,23 @@ public class TelaPokedex extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(btCadastrar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btRemover)
                 .addGap(18, 18, 18)
                 .addComponent(btEditar)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbTipo)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbNome)
-                            .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbTipo))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbNome)
+                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -308,10 +343,10 @@ public class TelaPokedex extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(440, 270, 300, 220);
 
-        lbImagemFundo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbImagemFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ImagemPokedex.png"))); // NOI18N
-        getContentPane().add(lbImagemFundo);
-        lbImagemFundo.setBounds(0, -20, 761, 550);
+        lbTelaFundo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbTelaFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ImagemPokedex.png"))); // NOI18N
+        getContentPane().add(lbTelaFundo);
+        lbTelaFundo.setBounds(0, -20, 761, 550);
 
         setSize(new java.awt.Dimension(777, 594));
         setLocationRelativeTo(null);
@@ -338,19 +373,142 @@ public class TelaPokedex extends javax.swing.JFrame {
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
         try{
             String nome = tfNome.getText();
-            double peso = Double.parseDouble(tfPeso.getText());
-            double altura = Double.parseDouble(tfAltura.getText());
-            int ataque = Integer.parseInt(tfAtaque.getText());
-            int forca = Integer.parseInt(tfForca.getText());
-            int defesa = Integer.parseInt(tfDefesa.getText());
-            int agilidade = Integer.parseInt(tfAgilidade.getText());
-            if(cbTipo.getSelectedIndex() == 0){
-                Aco pokemon = new Aco(nome, ETipo.AÇO, peso, altura, ataque, forca, defesa, agilidade, 1);
-                pokemon.setCodigo(1);
-                pokemon.ataqueEspecialAco();
-                pokedex.inserirPokemon(pokemon);
+            if(pokedex.buscarPorNome(nome) == null){
+                double peso = Double.parseDouble(tfPeso.getText());
+                double altura = Double.parseDouble(tfAltura.getText());
+                int ataque = Integer.parseInt(tfAtaque.getText());
+                int forca = Integer.parseInt(tfForca.getText());
+                int defesa = Integer.parseInt(tfDefesa.getText());
+                int agilidade = Integer.parseInt(tfAgilidade.getText());
+                switch (cbTipo.getSelectedIndex()) {
+                    case 0:
+                        {
+                            Aco pokemon = new Aco(nome, ETipo.AÇO, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialAco();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 1:
+                        {
+                            Agua pokemon = new Agua(nome, ETipo.ÁGUA, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialAgua();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 2:
+                        {
+                            Dragao pokemon = new Dragao(nome, ETipo.DRAGÃO, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialDragao();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 3:
+                        {
+                            Eletrico pokemon = new Eletrico(nome, ETipo.ELÉTRICO, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialEletrico();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 4:
+                        {
+                            Fada pokemon = new Fada(nome, ETipo.FADA, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialFada();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 5:
+                        {
+                            Fantasma pokemon = new Fantasma(nome, ETipo.FANTASMA, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialFantasma();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 6:
+                        {
+                            Fogo pokemon = new Fogo(nome, ETipo.FOGO, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialFogo();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 7:
+                        {
+                            Gelo pokemon = new Gelo(nome, ETipo.GELO, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialGelo();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 8:
+                        {
+                            Grama pokemon = new Grama(nome, ETipo.GRAMA, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialGrama();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 9:
+                        {
+                            Inseto pokemon = new Inseto(nome, ETipo.INSETO, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialInseto();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 10:
+                        {
+                            Lutador pokemon = new Lutador(nome, ETipo.LUTADOR, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialLutador();                                                          
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 11:
+                        {
+                            Normal pokemon = new Normal(nome, ETipo.NORMAL, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialNormal();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 12:
+                        {
+                            Pedra pokemon = new Pedra(nome, ETipo.PEDRA, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialPedra();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 13:
+                        {
+                            Psiquico pokemon = new Psiquico(nome, ETipo.PSÍQUICO, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialPsiquico();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 14:
+                        {
+                            Terra pokemon = new Terra(nome, ETipo.TERRA, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialTerra();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 15:
+                        {
+                            Veneno pokemon = new Veneno(nome, ETipo.VENENO, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialVeneno();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    case 16:
+                        {
+                            Voador pokemon = new Voador(nome, ETipo.VOADOR, peso, altura, ataque, forca, defesa, agilidade, cdg);
+                            pokemon.ataqueEspecialVoador();
+                            pokedex.inserirPokemon(pokemon);
+                            break;
+                        }
+                    default:
+                        break;
+                }
+                cdg++;
                 JOptionPane.showMessageDialog(null, "Pokemon Cadastrado!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Já existe pokemon cadastrado com esse nome!");
             }
+            
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Erro");
         }
@@ -358,6 +516,9 @@ public class TelaPokedex extends javax.swing.JFrame {
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
         try{
+            btEditar.setText("Editar");
+            btRemover.setEnabled(false);
+            btEditar.setEnabled(false);
             taInfo.setText("");
             if(rbTodos.isSelected()){
                 List<Pokemon> lista = pokedex.imprimePokedex();
@@ -366,11 +527,19 @@ public class TelaPokedex extends javax.swing.JFrame {
                 }
             }else{
                 if(rbNome.isSelected()){
-                   Pokemon pokemon = pokedex.buscarPorNome(tfBuscar.getText());
-                   taInfo.setText(pokemon.toString());
+                   pkm = pokedex.buscarPorNome(tfBuscar.getText());
+                   if(pkm != null){
+                        taInfo.setText(pkm.toString());
+                        btRemover.setEnabled(true);
+                        btEditar.setEnabled(true);
+                   }
                 }else if(rbCodigo.isSelected()){
-                    Pokemon pokemon = pokedex.buscarPorCodigo(Integer.parseInt(tfBuscar.getText()));
-                    taInfo.setText(pokemon.toString());
+                    pkm = pokedex.buscarPorCodigo(Integer.parseInt(tfBuscar.getText()));
+                    if(pkm != null){
+                        taInfo.setText(pkm.toString());
+                        btRemover.setEnabled(true);
+                        btEditar.setEnabled(true);
+                    }
                 }else if(rbTipo.isSelected()){
                     List<Pokemon> pokemon = pokedex.buscarPorTipo(tfBuscar.getText());
                     for(Pokemon p: pokemon){
@@ -393,9 +562,128 @@ public class TelaPokedex extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rbTipoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
+        try{
+            pokedex.removePokemon(pkm.getNome());
+            JOptionPane.showMessageDialog(null, "Pokemon removido com sucesso!");
+            taInfo.setText("");
+            btRemover.setEnabled(false);
+            btEditar.setEnabled(false);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro");
+        }
+    }//GEN-LAST:event_btRemoverActionPerformed
+
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        btCadastrar.setEnabled(false);
+        btRemover.setEnabled(false);
+        try{
+            if(btEditar.getText().equals("Editar")){
+            tfNome.setText(pkm.getNome());
+            tfPeso.setText(Double.toString(pkm.getPeso()));
+            tfAtaque.setText(Integer.toString(pkm.getAtaque()));
+            tfDefesa.setText(Integer.toString(pkm.getDefesa()));
+            tfAltura.setText(Double.toString(pkm.getAltura()));
+            tfForca.setText(Integer.toString(pkm.getForca()));
+            tfAgilidade.setText(Integer.toString(pkm.getAgilidade()));
+            cbTipo.setSelectedItem(pkm.getTipo().toString());
+            btEditar.setText("Salvar");
+            btEditar.setBackground(Color.GREEN);
+            }else if(btEditar.getText().equals("Salvar")){
+                String nome = tfNome.getText();
+                if((pokedex.buscarPorNome(nome) != null) && (!pkm.getNome().equals(nome))){
+                    JOptionPane.showMessageDialog(null, "Já existe pokemon cadastrado com esse nome!");
+                }
+                else{
+                    pkm.setNome(tfNome.getText());
+                    pkm.setAgilidade(Integer.parseInt(tfAgilidade.getText()));
+                    pkm.setAltura(Double.parseDouble(tfAltura.getText()));
+                    pkm.setAtaque(Integer.parseInt(tfAtaque.getText()));
+                    pkm.setDefesa(Integer.parseInt(tfDefesa.getText()));
+                    pkm.setForca(Integer.parseInt(tfForca.getText()));
+                    pkm.setPeso(Double.parseDouble(tfPeso.getText()));
+                    pkm.setTipo(retornaTipo(cbTipo.getSelectedItem().toString()));
+                    pokedex.editarPokemon(pkm);
+                    JOptionPane.showMessageDialog(null, "Alteração salva com sucesso!");
+                    btEditar.setText("Editar");
+                    btEditar.setEnabled(false);
+                    btCadastrar.setEnabled(true);
+                }
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro" + e);
+        }
+    }//GEN-LAST:event_btEditarActionPerformed
+
+    private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
+        tfNome.setText("");
+        tfAgilidade.setText("");
+        tfAltura.setText("");
+        tfAtaque.setText("");
+        tfDefesa.setText("");
+        tfForca.setText("");
+        tfPeso.setText("");
+        cbTipo.setSelectedIndex(-1);
+    }//GEN-LAST:event_btLimparActionPerformed
+
+   private ETipo retornaTipo(String tipo){
+       ETipo t = null;
+       switch(tipo){
+           case "AÇO":
+               t = ETipo.AÇO;
+               break;
+           case "ÁGUA":
+               t = ETipo.ÁGUA;
+               break;
+           case "DRAGÃO":
+               t = ETipo.DRAGÃO;
+               break;
+           case "ELÉTRICO":
+               t = ETipo.ELÉTRICO;
+               break;
+           case "FADA":
+               t = ETipo.FADA;
+               break;
+           case "FANTASMA":
+               t = ETipo.FANTASMA;
+               break;
+           case "FOGO":
+               t = ETipo.FOGO;
+               break;
+           case "GELO":
+               t = ETipo.GELO;
+               break;
+           case "GRAMA":
+               t = ETipo.GRAMA;
+               break;
+           case "INSETO":
+               t = ETipo.INSETO;
+               break;
+           case "LUTADOR":
+               t = ETipo.LUTADOR;
+               break;
+           case "NORMAL":
+               t = ETipo.NORMAL;
+               break;
+           case "PEDRA":
+               t = ETipo.PEDRA;
+               break;
+           case "PSÍQUICO":
+               t = ETipo.PSÍQUICO;
+               break;
+           case "TERRA":
+               t = ETipo.TERRA;
+               break;
+           case "VENENO":
+               t = ETipo.VENENO;
+               break;
+           case "VOADOR":
+               t = ETipo.VOADOR;
+               break;
+       }
+       return t;
+   } 
+   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -432,8 +720,8 @@ public class TelaPokedex extends javax.swing.JFrame {
     private javax.swing.JButton btBuscar;
     private javax.swing.JButton btCadastrar;
     private javax.swing.JButton btEditar;
+    private javax.swing.JButton btLimpar;
     private javax.swing.JButton btRemover;
-    private javax.swing.JButton btcadastrar;
     private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.ButtonGroup grSelecao;
     private javax.swing.JPanel jPanel1;
@@ -443,9 +731,9 @@ public class TelaPokedex extends javax.swing.JFrame {
     private javax.swing.JLabel lbAtaque;
     private javax.swing.JLabel lbDefesa;
     private javax.swing.JLabel lbForca;
-    private javax.swing.JLabel lbImagemFundo;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbPeso;
+    private javax.swing.JLabel lbTelaFundo;
     private javax.swing.JLabel lbTipo;
     private javax.swing.JRadioButton rbCodigo;
     private javax.swing.JRadioButton rbNome;

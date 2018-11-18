@@ -26,9 +26,9 @@ public class Pokedex {
     }
     
     public void removePokemon(String nome){
-        Pokemon pkm = buscarPorNome(nome);
-        if(pkm != null){
-            listaPokemon.remove(pkm);
+        Pokemon pokemon = buscarPorNome(nome);
+        if(pokemon != null){
+            listaPokemon.remove(pokemon);
         }
     }
     

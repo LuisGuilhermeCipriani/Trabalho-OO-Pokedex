@@ -25,7 +25,7 @@ public class Pedra extends Pokemon implements IPedra{
 
     @Override
     public void ataqueEspecialPedra() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Lança Pedras");
     }
     
 }

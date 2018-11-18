@@ -25,7 +25,7 @@ public class Fogo extends Pokemon implements IFogo{
     
     @Override
     public void ataqueEspecialFogo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Lança Chamas");
     }
     
 }

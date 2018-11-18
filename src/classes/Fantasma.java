@@ -25,7 +25,7 @@ public class Fantasma extends Pokemon implements IFantasma{
 
     @Override
     public void ataqueEspecialFantasma() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Susto");
     }
     
 }

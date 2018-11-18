@@ -25,7 +25,7 @@ public class Inseto extends Pokemon implements IInseto{
 
     @Override
     public void ataqueEspecialInseto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Paralizia");
     }
     
 }

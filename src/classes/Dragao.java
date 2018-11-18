@@ -25,7 +25,7 @@ public class Dragao extends Pokemon implements IDragao{
 
     @Override
     public void ataqueEspecialDragao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Garras");
     }
     
 }

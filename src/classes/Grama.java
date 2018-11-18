@@ -25,7 +25,7 @@ public class Grama extends Pokemon implements IGrama{
 
     @Override
     public void ataqueEspecialGrama() {
-        setAtaqueEspecial("");
+        setAtaqueEspecial("Folha Navalha");
     }
     
 }

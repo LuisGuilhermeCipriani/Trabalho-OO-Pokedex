@@ -25,7 +25,7 @@ public class Lutador extends Pokemon implements ILutador{
 
     @Override
     public void ataqueEspecialLutador() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Soco");
     }
     
 }

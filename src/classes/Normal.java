@@ -25,7 +25,7 @@ public class Normal extends Pokemon implements INormal{
 
     @Override
     public void ataqueEspecialNormal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Corrida");
     }
     
 }

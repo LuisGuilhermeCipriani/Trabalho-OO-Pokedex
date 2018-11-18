@@ -25,7 +25,7 @@ public class Gelo extends Pokemon implements IGelo{
 
     @Override
     public void ataqueEspecialGelo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Raio de Gelo");
     }
     
 }

@@ -23,7 +23,7 @@ public class Agua extends Pokemon implements IAgua{
 
     @Override
     public void ataqueEspecialAgua() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Jato de Água");
     }
     
 }

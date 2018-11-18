@@ -25,7 +25,7 @@ public class Voador extends Pokemon implements IVoador{
 
     @Override
     public void ataqueEspecialVoador() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Vento");
     }
     
 }

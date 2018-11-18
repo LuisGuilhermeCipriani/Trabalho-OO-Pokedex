@@ -25,7 +25,7 @@ public class Terra extends Pokemon implements ITerra{
 
     @Override
     public void ataqueEspecialTerra() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Areia");
     }
     
 }

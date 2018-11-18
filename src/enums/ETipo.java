@@ -12,9 +12,9 @@ package enums;
 public enum ETipo {
     
     AÇO,
-    AGUA,
-    DRAGAO,
-    ELETRICO,
+    ÁGUA,
+    DRAGÃO,
+    ELÉTRICO,
     FADA,
     FANTASMA,
     FOGO,
@@ -24,7 +24,7 @@ public enum ETipo {
     LUTADOR,
     NORMAL,
     PEDRA,
-    PSIQUICO,
+    PSÍQUICO,
     TERRA,
     VENENO,
     VOADOR

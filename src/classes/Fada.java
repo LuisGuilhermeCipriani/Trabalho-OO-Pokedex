@@ -25,7 +25,7 @@ public class Fada extends Pokemon implements IFada{
 
     @Override
     public void ataqueEspecialFada() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setAtaqueEspecial("Brilho");
     }
     
 }
