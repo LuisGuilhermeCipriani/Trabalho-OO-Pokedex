@@ -1,28 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package classes;
 
 import enums.ETipo;
-import interfaces.IAco;
+import java.util.List;
 
-/**
- *
- * @author Luis Guilherme
- */
-public class Aco extends Pokemon implements IAco{
 
-    public Aco(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, int codigo) {
-        super(nome, tipo, peso, altura, ataque, forca, defesa, agilidade, codigo);
+public class Aco extends Pokemon{
+
+    /**
+     * Este é um método construtor da classe Aço
+     */
+    public Aco() {
     }
-    
 
-    @Override
-    public void ataqueEspecialAco() {
-        setAtaqueEspecial("Super aço");
+    /**
+     * Este é um método construtor da classe Aço
+     * @param nome
+     * @param tipo
+     * @param peso
+     * @param altura
+     * @param ataque
+     * @param forca
+     * @param defesa
+     * @param agilidade
+     * @param ataques 
+     */
+    public Aco(String nome, ETipo tipo, double peso, double altura, int ataque, int forca, int defesa, int agilidade, List<String> ataques) {
+        super(nome, tipo, peso, altura, ataque, forca, defesa, agilidade, ataques);
     }
-    
-    
 }
