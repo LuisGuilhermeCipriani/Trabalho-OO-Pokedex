@@ -1,5 +1,5 @@
 
-package telas;
+package interfaceGrafica;
 
 import classes.Aco;
 import classes.Agua;
@@ -132,8 +132,6 @@ public class TelaPokedex extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pokédex");
-        setMaximumSize(new java.awt.Dimension(761, 536));
-        setPreferredSize(new java.awt.Dimension(761, 536));
         setResizable(false);
         getContentPane().setLayout(null);
 
